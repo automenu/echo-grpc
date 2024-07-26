@@ -1,0 +1,28 @@
+# editors
+.idea
+.iml
+*.swp
+.history
+
+# binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# test binary, built with `go test -c`
+*.test
+
+# output of the go coverage tool
+*.out
+coverage.txt
+coverage.coverprofile
+
+# dependency directories (remove the comment below to include it)
+# vendor/
+
+# misc
+.DS_Store
+*.pem
+*.key

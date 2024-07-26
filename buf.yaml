@@ -1,0 +1,13 @@
+version: v2
+modules:
+  - path: proto
+lint:
+  use:
+    - DEFAULT
+    - COMMENTS
+    - UNARY_RPC
+  service_suffix: API
+  disallow_comment_ignores: true
+breaking:
+  use:
+    - FILE

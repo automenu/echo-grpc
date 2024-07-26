@@ -1,0 +1,69 @@
+# This workflow runs when a commit is pushed to the "main" branch or
+# a pull request is opened against the "main" branch.
+#
+# It uses:
+# - the golangci-lint to lint the Go code.
+# - the Buf CLI to lint, format, and detect breaking changes in the Protobuf files.
+# - Prettier to check for general formatting issues in yaml, json, README, etc.
+
+name: lint
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+permissions:
+  checks: write
+  contents: read
+  packages: read
+  pull-requests: read
+jobs:
+  lint:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: true
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+      - name: Check tidy
+        run: make check-tidy
+  buf:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Buf
+        uses: bufbuild/buf-setup-action@v1
+      - name: Linting
+        uses: bufbuild/buf-lint-action@v1
+      - name: Check breaking changes
+        uses: bufbuild/buf-breaking-action@v1
+        with:
+          against: 'https://github.com/automenu/echo-grpc.git#branch=main'
+      - name: Check formatting
+        run: buf format -d --exit-code
+      - name: Check codegen
+        run: make check-codegen
+  prettier:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Prettier
+        run: npx --yes prettier --check .

@@ -1,0 +1,58 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "editor.trimAutoWhitespace": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+
+  "files.associations": {
+    "AUTHORS": "plaintext",
+    "CODEOWNERS": "plaintext",
+    "CONTRIBUTORS": "plaintext"
+  },
+
+  "gopls": {
+    "ui.semanticTokens": true
+  },
+
+  "go.lintOnSave": "package",
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": ["--fast"],
+  "go.vetOnSave": "package",
+  "go.useLanguageServer": true,
+
+  "[go]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    "editor.defaultFormatter": "golang.go"
+  },
+  "[go.mod]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    "editor.defaultFormatter": "golang.go"
+  },
+  "[go.sum]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    "editor.defaultFormatter": "golang.go"
+  },
+  "[go.work]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    "editor.defaultFormatter": "golang.go"
+  },
+
+  "[proto]": {
+    "editor.defaultFormatter": "bufbuild.vscode-buf"
+  },
+
+  "[makefile]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false
+  },
+
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  }
+}
