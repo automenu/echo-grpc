@@ -5,10 +5,21 @@ help:
 	@echo ""
 	@echo "Targets:"
 	@echo "  dev         Start dev server"
+	@echo "  ping        Ping the server using gRPC client"
 	@echo "  check       Run all checks"
 	@echo "  lintfix     Run linters and fix some issues"
 	@echo "  codegen     Generate code"
 	@echo "---"
+
+.PHONY: dev
+dev:
+	@echo "Starting dev server..."
+	go run ./cmd/server/main.go
+
+.PHONY: ping
+ping:
+	@echo "Pinging the server using gRPC client..."
+	go run ./cmd/client/main.go
 
 .PHONY: check
 check: lint check-codegen check-breaking check-tidy
@@ -50,9 +61,8 @@ check-breaking:
 	buf breaking --against 'https://github.com/automenu/echo-grpc.git#branch=main'
 	@echo "Codegen is not breaking"
 
-.PHONY: checktidy
-checktidy:
-	@echo "Running checktidy"
+.PHONY: check-tidy
+check-tidy:
 	@echo "Checking if 'go mod tidy' is needed..."
 	go mod tidy
 	test -z "$$(git status --porcelain | tee /dev/stderr)"
