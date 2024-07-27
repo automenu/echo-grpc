@@ -61,9 +61,8 @@ check-breaking:
 	buf breaking --against 'https://github.com/automenu/echo-grpc.git#branch=main'
 	@echo "Codegen is not breaking"
 
-.PHONY: checktidy
-checktidy:
-	@echo "Running checktidy"
+.PHONY: check-tidy
+check-tidy:
 	@echo "Checking if 'go mod tidy' is needed..."
 	go mod tidy
 	test -z "$$(git status --porcelain | tee /dev/stderr)"
